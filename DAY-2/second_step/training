@@ -1,0 +1,12 @@
+const prompts = require('prompts');
+
+async function direBonjour() {
+  const { nom } = await prompts({
+    type: 'text',
+    name: 'nom',
+    message: 'Quel est votre nom ?'
+  });
+  console.log(`Bonjour, ${nom} ! 🌟`);
+}
+
+direBonjour();
