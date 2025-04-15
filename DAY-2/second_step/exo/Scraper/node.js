@@ -3,26 +3,11 @@ const url = 'https://fr.wikipedia.org/wiki/Liste_des_communes_de_Belgique_par_po
 
 // fonction générale qui cherche et recupère les données de mon tableau
 
-function initScraped() {
-  console.log("nouveau scraping de mon tableau");
-};
-
- // message de bienvenue daans mon scraped
-
-import * as cheerio from 'cheerio';
-
 const $ = await cheerio.fromURL('https://fr.wikipedia.org/wiki/Liste_des_communes_de_Belgique_par_population'); // tant que les élements de mon url ne sont pas tous parcouru il n'opère aucun choix
 
 // importe les modules nécessaires
 
 const fs = require('fs'); // pour lire le fichier local
-
-// lit le contenu du fichier HTML téléchargé depuis Wikipédia
-// Le fichier doit se trouver dans le même dossier que ce script
-const html = fs.readFileSync('communes.html', 'utf-8');
-
-// cheerio charge les données html dans ma constante $
-const $ = cheerio.load(html);
 
 // crée un tableau vide pour stocker les communes extraites
 const communes = [];
@@ -35,7 +20,7 @@ table.find('tbody tr').each((i, row) => {
   // récupère toutes les cellules <td> de cette ligne
   const cells = $(row).find('td');
 
-  // ⚠️Si la ligne n’a pas au moins 3 cellules, on l’ignore (souvent l’entête ou ligne vide)
+  //  la ligne n’a pas au moins 3 cellules, on l’ignore (souvent l’entête ou ligne vide)
   if (cells.length < 3) return;
 
   // construit un objet représentant une commune
@@ -50,7 +35,7 @@ table.find('tbody tr').each((i, row) => {
 });
 
 // affiche les 10 premières communes dans un tableau dans le terminal
-console.table(communes.slice(0, 10));
+console.table(communes.slice(0, 100));
 
 // Optionnel : afficher combien de communes ont été extraites
 console.log(`\n ${communes.length} communes extraites avec succès.`);
